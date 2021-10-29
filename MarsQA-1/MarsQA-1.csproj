@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Feature\Profile.feature" />
     <None Include="Feature\Login.feature" />
     <None Include="SpecflowTests\Data\Data.xlsx" />
     <None Include="packages.config" />
