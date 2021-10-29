@@ -17,10 +17,12 @@ namespace MarsQA_1.Utils
 
         [BeforeScenario]
         public void Setup()
-        {
+        {  
             //launch the browser
             Initialize();
-            ExcelLibHelper.PopulateInCollection(@"MarsQA-1\SpecflowTests\Data\Mars.xlsx", "Credentials");
+            // TODO: fix to use relative path
+            ExcelLibHelper.PopulateInCollection(@"C:\Users\manal\OneDrive\Documents\Mars - Profile\mars-profile\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "Credentials");
+
             //call the SignIn class
             SignIn.SigninStep();
         }
@@ -28,20 +30,18 @@ namespace MarsQA_1.Utils
         [AfterScenario]
         public void TearDown()
         {
-
+            //TODO: uncomment 
             // Screenshot
-            string img = SaveScreenShotClass.SaveScreenshot(Driver.driver, "Report");
-           test.Log(LogStatus.Info, "Snapshot below: " + test.AddScreenCapture(img));
+            //string img = SaveScreenShotClass.SaveScreenshot(Driver.driver, "Report");
+            //test.Log(LogStatus.Info, "Snapshot below: " + test.AddScreenCapture(img));
             //Close the browser
             Close();
              
             // end test. (Reports)
-            CommonMethods.Extent.EndTest(test);
+            //CommonMethods.Extent.EndTest(test);
             
             // calling Flush writes everything to the log file (Reports)
-            CommonMethods.Extent.Flush();
-           
-
+            //CommonMethods.Extent.Flush();
         }
     }
 }
