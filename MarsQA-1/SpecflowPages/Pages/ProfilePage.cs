@@ -49,5 +49,35 @@ namespace MarsQA_1.SpecflowPages.Pages
             Thread.Sleep(300);
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[1]")).Click();
         }
+
+        public string getCountry(IWebDriver driver)
+        {            
+            IWebElement newCountry = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[1]"));
+            return newCountry.Text;
+        }
+
+        public string getUniversity(IWebDriver driver)
+        {
+            //*[@id="account-profile-section"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr
+            IWebElement newUniversity = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[2]"));
+            return newUniversity.Text;
+        }
+
+        public string getTitle(IWebDriver driver)
+        {
+            IWebElement newTitle = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[3]"));
+            return newTitle.Text;
+        }
+        
+        public string getDegree(IWebDriver driver)
+        {
+            IWebElement newDegree = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[4]"));
+            return newDegree.Text;
+        }
+        public string getGraduationYear(IWebDriver driver)
+        {
+            IWebElement newGraduationYear = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[5]"));
+            return newGraduationYear.Text;
+        }
     }
 }
