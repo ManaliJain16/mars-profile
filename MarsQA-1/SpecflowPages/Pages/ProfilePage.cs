@@ -104,5 +104,39 @@ namespace MarsQA_1.SpecflowPages.Pages
                 }                
             }
         }
+
+
+        //SELLERS NAME
+        public void updateName(IWebDriver driver, string firstName, string lastName)
+        {
+            // Identify FirstName Textbox, edit existing value and add new first name 
+            Thread.Sleep(500);
+
+            IWebElement firstNametextbox = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div[1]/input[1]"));
+            firstNametextbox.Clear();
+            firstNametextbox.SendKeys(firstName);
+
+            //Identify LastName Textbox, edit existing value and add new first name
+            IWebElement lastNametextbox = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div[1]/input[2]"));
+            lastNametextbox.Clear();
+            lastNametextbox.SendKeys(lastName);
+
+            // Press Save Button
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/button")).Click();
+        }
+
+        public string getupdatedName(IWebDriver driver)
+        {
+            Thread.Sleep(500);                                
+            IWebElement updatedName = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]"));
+            Thread.Sleep(300);
+            return updatedName.Text;
+        }
     }
 }
+
+
+
+
+
+

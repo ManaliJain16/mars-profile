@@ -14,6 +14,7 @@ namespace MarsQA_1.Feature
     {
         private ProfilePage profilePageObj = new ProfilePage();
 
+
         [BeforeScenario(Order = 1), Scope(Tag = "education")]
         public void ClearEducationRows()
         {
@@ -72,6 +73,34 @@ namespace MarsQA_1.Feature
             Assert.AreEqual(Title, newTitle, "Title not matches");
             Assert.AreEqual(Degree, newDegree, "Degree not matches");
             Assert.AreEqual(YearofGraduation, newGraduationYear, "GraduationYear not matches");
+        }
+
+
+
+        //SELLERS NAME
+
+        [When(@"he click on dropdown icon, just before his name")]
+        public void WhenHeClickOnDropdownArrowJustBeforeHisName()
+        {
+            //Seller Clicks on dropdown icon
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/i")).Click();
+        }
+
+        [When(@"updates his '(.*)' and '(.*)'")]
+        public void WhenUpdatesHisAnd(string firstName, string lastName)
+        {
+            profilePageObj.updateName(driver, firstName, lastName);
+        }
+
+      
+        [Then(@"he must be able to see '(.*)' and '(.*)' updated on the Profile Page")]
+        public void ThenHeMustBeAbleToSeeAndUpdatedOnTheProfilePage(string firstName, string lastName)
+        {
+            string updatedName = profilePageObj.getupdatedName(driver);
+            string expectedName = firstName + " " + lastName;
+
+            //Assert..what about last name
+            Assert.AreEqual(expectedName, updatedName, "Expected Name not matched");
         }
     }
 }
