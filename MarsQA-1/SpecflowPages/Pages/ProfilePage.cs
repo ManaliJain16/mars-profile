@@ -79,5 +79,30 @@ namespace MarsQA_1.SpecflowPages.Pages
             IWebElement newGraduationYear = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[5]"));
             return newGraduationYear.Text;
         }
+
+        public void clickOnTab(IWebDriver driver, string tabName)
+        {
+            // TODO: click tab based on tab name
+            //Click on Education tab
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]")).Click();
+        }
+
+        public void clearEducationRows(IWebDriver driver)
+        {
+            while (true)
+            {
+                try
+                {
+                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[1]/tr/td[6]/span[2]"));
+                    deleteButton.Click();
+                    Thread.Sleep(1000);
+                }
+                catch (NoSuchElementException ex)
+                {
+                    // no more rows to delete
+                    break;
+                }                
+            }
+        }
     }
 }

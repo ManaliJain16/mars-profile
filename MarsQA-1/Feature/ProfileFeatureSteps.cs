@@ -14,6 +14,14 @@ namespace MarsQA_1.Feature
     {
         private ProfilePage profilePageObj = new ProfilePage();
 
+        [BeforeScenario(Order = 1), Scope(Tag = "education")]
+        public void ClearEducationRows()
+        {
+            Thread.Sleep(500);
+            profilePageObj.clickOnTab(driver, "Education");
+            profilePageObj.clearEducationRows(driver);
+        }
+
         [Given(@"Seller is on Profile Page")]
         public void GivenSellerIsOnProfilePage()
         {
@@ -27,8 +35,8 @@ namespace MarsQA_1.Feature
         [When(@"he clicks on Add New button under (.*) tab")]
         public void WhenHeClicksOnAddNewButtonUnderEducationTab(String tabName)
         {
-            //Click on Education tab
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]")).Click();
+            // Click on Education tab
+            profilePageObj.clickOnTab(driver, tabName);
 
             //Click on "Add New" button 
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div")).Click();

@@ -15,7 +15,7 @@ namespace MarsQA_1.Utils
     public class Start : Driver
     {
 
-        [BeforeScenario]
+        [BeforeScenario(Order = 0)]
         public void Setup()
         {  
             //launch the browser
