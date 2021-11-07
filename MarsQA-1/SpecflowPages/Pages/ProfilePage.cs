@@ -12,13 +12,58 @@ namespace MarsQA_1.SpecflowPages.Pages
 {
     class ProfilePage
     {
+        public void clickOnTab(IWebDriver driver, string tabName)
+        { 
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[" + getTabNumber(tabName) + "]")).Click();
+        }
+
+        public void clearRows(IWebDriver driver, string tabName)
+        {
+
+            while (true)
+            {
+                try
+                {
+                    int tableNumber = getTabNumber(tabName) + 1;
+                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div["+tableNumber+"]/div/div[2]/div/table/tbody/tr/td[last()]/span[2]"));
+                    deleteButton.Click();
+                    Thread.Sleep(1000);
+                }
+                catch (NoSuchElementException ex)
+                {
+                    // no more rows to delete
+                    break;
+                }
+            }
+        }
+
+        private int getTabNumber(string tabName)
+        {
+            int tabNumber = 1;
+            switch (tabName)
+            {
+                case "Languages":
+                    tabNumber = 1;
+                    break;
+                case "Skills":
+                    tabNumber = 2;
+                    break;
+                case "Education":
+                    tabNumber = 3;
+                    break;
+                case "Certifications":
+                    tabNumber = 4;
+                    break;
+                default:
+                    Assert.Fail("Tab not found");
+                    break;
+            }
+            return tabNumber;
+        }
+
+
         //EDUCATION
         //TO DO - remove all Thread.sleep
-        public void clickEducationTab(IWebDriver driver)
-        {
-            // click on Education tab 
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]")).Click();
-        }
 
         public void addEducation(IWebDriver driver, string university, string country, string title, string degree, string yearOfGraduation)
         {
@@ -76,24 +121,6 @@ namespace MarsQA_1.SpecflowPages.Pages
         {
             IWebElement newGraduationYear = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[5]"));
             return newGraduationYear.Text;
-        }
-
-        public void clearEducationRows(IWebDriver driver)
-        {
-            while (true)
-            {
-                try
-                {
-                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody[1]/tr/td[6]/span[2]"));
-                    deleteButton.Click();
-                    Thread.Sleep(1000);
-                }
-                catch (NoSuchElementException ex)
-                {
-                    // no more rows to delete
-                    break;
-                }
-            }
         }
 
 
@@ -164,32 +191,6 @@ namespace MarsQA_1.SpecflowPages.Pages
 
         //Certifications
 
-        //Clear certification rows
-        public void clearCertificationRows(IWebDriver driver)
-        {
-            while (true)
-            {
-                try
-                {
-                    //                                                
-                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[4]/span[2]"));
-                    deleteButton.Click();
-                    Thread.Sleep(1000);
-                }
-                catch (NoSuchElementException ex)
-                {
-                    // no more rows to delete
-                    break;
-                }
-            }
-        }
-
-        public void clickCertificationTab(IWebDriver driver)
-        {
-            // click on Certification tab
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]")).Click();
-        }
-
         public void addCertificate(IWebDriver driver, string certificate, string from, string year)
         {
             //Click on Add New button under Certifications tab
@@ -234,33 +235,6 @@ namespace MarsQA_1.SpecflowPages.Pages
 
         // Skills
 
-        public void clickSkillsTab(IWebDriver driver)
-        {
-            // click on Certification tab
-            //*[@id="account-profile-section"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]")).Click();
-        }
-
-        // Clear Skills Rows
-        public void clearSkillsRows(IWebDriver driver)
-        {
-            while (true)
-            {
-                try
-                {
-                    Thread.Sleep(300);
-                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[1]/tr/td[3]/span[2]"));
-                    deleteButton.Click();
-                    Thread.Sleep(1000);
-                }
-                catch (NoSuchElementException ex)
-                {
-                    // no more rows to delete
-                    break;
-                }
-            }
-        }
-
         public void addSkill(IWebDriver driver, string skill, string level)
         {
             // click on Add New button
@@ -276,35 +250,6 @@ namespace MarsQA_1.SpecflowPages.Pages
             // click on Add button
             Thread.Sleep(300);
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]")).Click();
-        }
-
-
-
-        // Languages
-        public void clickLanguagesTab(IWebDriver driver)
-        {
-            // click on Language tab
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]")).Click();
-        }
-
-        // Clear Skills Rows
-        public void clearLanguagesRows(IWebDriver driver)
-        {
-            while (true)
-            {
-                try
-                {
-                    Thread.Sleep(300);
-                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[3]/span[2]"));
-                    deleteButton.Click();
-                    Thread.Sleep(1000);
-                }
-                catch (NoSuchElementException ex)
-                {
-                    // no more rows to delete
-                    break;
-                }
-            }
         }
 
         public void addLanguage(IWebDriver driver, string language, string level)

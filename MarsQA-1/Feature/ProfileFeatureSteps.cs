@@ -19,32 +19,32 @@ namespace MarsQA_1.Feature
         public void ClearEducationRows()
         {
             Thread.Sleep(500);
-            profilePageObj.clickEducationTab(driver);
-            profilePageObj.clearEducationRows(driver);
+            profilePageObj.clickOnTab(driver, "Education");
+            profilePageObj.clearRows(driver, "Education");
         }
 
         [BeforeScenario(Order = 1), Scope(Tag = "certifications")]
         public void ClearCertificationsRows()
         {
             Thread.Sleep(500);
-            profilePageObj.clickCertificationTab(driver);
-            profilePageObj.clearCertificationRows(driver);
+            profilePageObj.clickOnTab(driver, "Certifications");
+            profilePageObj.clearRows(driver, "Certifications");
         }
 
         [BeforeScenario(Order = 1), Scope(Tag = "skills")]
         public void ClearSkillsRows()
         {
             Thread.Sleep(500);
-            profilePageObj.clickSkillsTab(driver);
-            profilePageObj.clearSkillsRows(driver);
+            profilePageObj.clickOnTab(driver, "Skills");
+            profilePageObj.clearRows(driver, "Skills");
         }
 
         [BeforeScenario(Order = 1), Scope(Tag = "language")]
         public void ClearLanguagesRows()
         {
             Thread.Sleep(500);
-            profilePageObj.clickLanguagesTab(driver);
-            profilePageObj.clearLanguagesRows(driver);
+            profilePageObj.clickOnTab(driver, "Languages");
+            profilePageObj.clearRows(driver, "Languages");
         }
 
         [Given(@"Seller is on Profile Page")]
@@ -64,31 +64,7 @@ namespace MarsQA_1.Feature
         [When(@"he clicks on Add New button under (.*) tab")]
         public void WhenHeClicksOnAddNewButtonUnderEducationTab(String tabName)
         {
-
-            switch(tabName)
-            {
-                case "Education":
-                    profilePageObj.clickEducationTab(driver);
-                    // TODO: click on add new button
-                    break;
-
-                case "Certifications":
-                    profilePageObj.clickCertificationTab(driver);
-                    break;
-
-                case "Skills":
-                    profilePageObj.clickSkillsTab(driver);
-                    break;
-
-                case "Languages":
-                    profilePageObj.clickLanguagesTab(driver);
-                    break;
-
-                default:
-                    Assert.Fail("Tab Name is incorrect");
-                    break;
-            }
-
+            profilePageObj.clickOnTab(driver, tabName);
         }
 
 
