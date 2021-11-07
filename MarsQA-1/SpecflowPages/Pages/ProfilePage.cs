@@ -211,7 +211,7 @@ namespace MarsQA_1.SpecflowPages.Pages
         }
 
         // Check added Certificate
-        public string getCertificate (IWebDriver driver)
+        public string getCertificate(IWebDriver driver)
         {
             IWebElement addedCertificate = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[1]"));
             return addedCertificate.Text;
@@ -227,6 +227,104 @@ namespace MarsQA_1.SpecflowPages.Pages
         {
             IWebElement addedYear = driver.FindElement(By.XPath("//*[@id='account-profile-section']/ div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[3]"));
             return addedYear.Text;
+        }
+
+
+
+
+        // Skills
+
+        public void clickSkillsTab(IWebDriver driver)
+        {
+            // click on Certification tab
+            //*[@id="account-profile-section"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]")).Click();
+        }
+
+        // Clear Skills Rows
+        public void clearSkillsRows(IWebDriver driver)
+        {
+            while (true)
+            {
+                try
+                {
+                    Thread.Sleep(300);
+                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[1]/tr/td[3]/span[2]"));
+                    deleteButton.Click();
+                    Thread.Sleep(1000);
+                }
+                catch (NoSuchElementException ex)
+                {
+                    // no more rows to delete
+                    break;
+                }
+            }
+        }
+
+        public void addSkill(IWebDriver driver, string skill, string level)
+        {
+            // click on Add New button
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div")).Click();
+
+            Thread.Sleep(300);
+            driver.FindElement(By.Name("name")).SendKeys(skill);
+
+            Thread.Sleep(300);
+            var levelSelect = new SelectElement(driver.FindElement(By.Name("level")));
+            levelSelect.SelectByText(level);
+
+            // click on Add button
+            Thread.Sleep(300);
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]")).Click();
+        }
+
+
+
+        // Languages
+        public void clickLanguagesTab(IWebDriver driver)
+        {
+            // click on Language tab
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]")).Click();
+        }
+
+        // Clear Skills Rows
+        public void clearLanguagesRows(IWebDriver driver)
+        {
+            while (true)
+            {
+                try
+                {
+                    Thread.Sleep(300);
+                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[3]/span[2]"));
+                    deleteButton.Click();
+                    Thread.Sleep(1000);
+                }
+                catch (NoSuchElementException ex)
+                {
+                    // no more rows to delete
+                    break;
+                }
+            }
+        }
+
+        public void addLanguage(IWebDriver driver, string language, string level)
+        {
+            // click on Add New button
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div")).Click();
+
+            // add language
+            driver.FindElement(By.Name("name")).SendKeys(language);
+
+
+            // add level
+            var levelSelect = new SelectElement(driver.FindElement(By.Name("level")));
+            if(level != "")
+            {
+                levelSelect.SelectByText(level);
+            }
+            
+            // click Add
+            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]")).Click();
         }
     }
 }

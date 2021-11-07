@@ -9,7 +9,7 @@ Scenario Outline: Adding Education with valid inputs
 	Given Seller is on Profile Page
 	When he clicks on Add New button under Education tab
 	And he enters '<University>', '<Country>', '<Title>', '<Degree>' and '<Graduation Year>' in Education
-	Then a popup message '<Message>' will appear
+	Then a success popup message '<Message>' will appear
 	And a new row with '<University>', '<Country>', '<Title>', '<Degree>', '<Graduation Year>' will be added successfully
 
 	Examples:
@@ -28,13 +28,12 @@ Scenario Outline: Updating Sellers name
 		| Manali    | Jain         |
 		| @$##$#$   | 392839283923 |
 
-
 @description
 Scenario Outline: Adding description (like his hobbies, additional expertise or anything else in max. 600, alphanumeric or special characters) with valid inputs
 	Given Seller is on Profile Page
 	When he clicks on the Edit icon next to Description
 	And enter '<Description>' in the textbox
-	Then a popup message 'Description has been saved successfully' will appear
+	Then a success popup message 'Description has been saved successfully' will appear
 	And he must be able to see '<Description>' on the Profile Page
 
 	Examples:
@@ -42,20 +41,50 @@ Scenario Outline: Adding description (like his hobbies, additional expertise or 
 		| I like to Play    |
 		| I like to Swim12# |
 
-
-
 @certifications
 Scenario Outline: Adding Certifications with valid inputs
 	Given Seller is on Profile Page
 	When he clicks on Add New button under Certifications tab
 	And he enters '<Certificate>', '<From>', '<Year>' in Certifications
-	Then a popup message '<Certificate> has been added to your certification' will appear
+	Then a success popup message '<Certificate> has been added to your certification' will appear
 	And a new row with '<Certificate>', '<From>', '<Year>' will be added sucessfully
 
 	Examples:
 		| Certificate | From | Year |
 		| ABC         | xx   | 2006 |
 
+@description
+Scenario: Saving description with invalid inputs
+	Given Seller is on Profile Page
+	When he clicks on the Edit icon next to Description
+	And enter ' ' in the textbox
+	Then an error pop up message 'First character can only be digit or letters' will appear
 
+@skills
+Scenario Outline: Adding Skills with duplicate data
+	Given Seller is on Profile Page
+	When he clicks on Add New button under Skills tab
+	And he enters '<Skill>' in Add Skill textbox, and select '<Level>' from Choose Skill Level dropdown list
+	Then a success popup message '<Skill> has been added to your skills' will appear
+	When he clicks on Add New button under Skills tab
+	And he enters '<Skill>' in Add Skill textbox, and select '<Second Level>' from Choose Skill Level dropdown list
+	Then an error pop up message '<Message>' will appear
 
+	Examples:
+		| Skill        | Level        | Second Level | Message                                         |
+		| Muli-tasking | Beginner     | Beginner     | This skill is already exist in your skill list. |
+		| Selenium     | Intermediate | Beginner     | Duplicated data                                 |
 
+@language
+Scenario Outline: Saving Languages with missing inputs
+	Given Seller is on Profile Page
+	When he clicks on Add New button under Languages tab
+	And he enters '<Language>' and '<Level>'
+	Then an error pop up message '<Message>' will appear
+	And a row with '<Language>' and '<Level>' will not be added to the list
+
+	Examples:
+		| Language | Level  | Message                         |
+		|          |        | Please enter language and level |
+		| English  |        | Please enter language and level |
+		|          | Fluent | Please enter language and level |

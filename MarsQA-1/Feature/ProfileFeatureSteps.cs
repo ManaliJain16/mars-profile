@@ -31,6 +31,22 @@ namespace MarsQA_1.Feature
             profilePageObj.clearCertificationRows(driver);
         }
 
+        [BeforeScenario(Order = 1), Scope(Tag = "skills")]
+        public void ClearSkillsRows()
+        {
+            Thread.Sleep(500);
+            profilePageObj.clickSkillsTab(driver);
+            profilePageObj.clearSkillsRows(driver);
+        }
+
+        [BeforeScenario(Order = 1), Scope(Tag = "language")]
+        public void ClearLanguagesRows()
+        {
+            Thread.Sleep(500);
+            profilePageObj.clickLanguagesTab(driver);
+            profilePageObj.clearLanguagesRows(driver);
+        }
+
         [Given(@"Seller is on Profile Page")]
         public void GivenSellerIsOnProfilePage()
         {
@@ -53,10 +69,19 @@ namespace MarsQA_1.Feature
             {
                 case "Education":
                     profilePageObj.clickEducationTab(driver);
+                    // TODO: click on add new button
                     break;
 
                 case "Certifications":
                     profilePageObj.clickCertificationTab(driver);
+                    break;
+
+                case "Skills":
+                    profilePageObj.clickSkillsTab(driver);
+                    break;
+
+                case "Languages":
+                    profilePageObj.clickLanguagesTab(driver);
                     break;
 
                 default:
@@ -73,10 +98,18 @@ namespace MarsQA_1.Feature
             profilePageObj.addEducation(driver, university, country, title, degree, yearOfGraduation);
         }
 
-        [Then(@"a popup message '(.*)' will appear")]
+        [Then(@"a success popup message '(.*)' will appear")]
         public void ThenAPopupMessageWillAppear(string message)
         {
             //popup message
+            Thread.Sleep(200);
+            var popup = driver.FindElement(By.XPath("//*[@class='ns-box-inner']"));
+            Assert.AreEqual(message, popup.Text, "Popup text not matching");
+        }
+
+        [Then(@"an error pop up message '(.*)' will appear")]
+        public void ThenAnErrorPopUpMessageWillAppear(string message)
+        {
             Thread.Sleep(200);
             var popup = driver.FindElement(By.XPath("//*[@class='ns-box-inner']"));
             Assert.AreEqual(message, popup.Text, "Popup text not matching");
@@ -170,6 +203,37 @@ namespace MarsQA_1.Feature
             Assert.AreEqual(certificate, addedCertificate, "Certificate not added");
             Assert.AreEqual(from, addedFrom, "Certificate not added");
             Assert.AreEqual(year, addedYear, "Certificate not added");
+        }
+
+        // Skills
+
+        [When(@"he enters '(.*)' in Add Skill textbox, and select '(.*)' from Choose Skill Level dropdown list")]
+        public void WhenHeEntersInAddSkillTextboxAndSelectFromChooseSkillLevelDropdownList(string skill, string level)
+        {
+            profilePageObj.addSkill(driver, skill, level);
+        }
+
+
+
+
+        // Languages
+        [When(@"he enters '(.*)' and '(.*)'")]
+        public void WhenHeEntersLanguageAndLevel(string language, string level)
+        {
+            profilePageObj.addLanguage(driver, language, level);
+        }
+
+        [Then(@"a row with '(.*)' and '(.*)' will not be added to the list")]
+        public void ThenARowWithWillNotBeAddedToTheList(string language, string level)
+        {
+            // table element
+            var tableElement = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table"));
+
+            // count tbody or tr elements in table element
+            var rowCount = tableElement.FindElements(By.TagName("tbody")).Count;
+
+            // assert row count is equal to 0
+            Assert.AreEqual(0, rowCount, "Rows exist in the table");
         }
 
 
