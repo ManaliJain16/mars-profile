@@ -80,7 +80,7 @@ namespace MarsQA_1.Feature
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Adding Education with valid inputs")]
         [NUnit.Framework.CategoryAttribute("education")]
-        [NUnit.Framework.TestCaseAttribute("India", "Ac", "B.Sc", "xy", "2020", "Education has been added", null)]
+        [NUnit.Framework.TestCaseAttribute("India", "Ac", "B.Sc", "xy", "2021", "Education has been added", null)]
         public virtual void AddingEducationWithValidInputs(string country, string university, string title, string degree, string graduationYear, string message, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -176,6 +176,115 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 24
  testRunner.Then(string.Format("he must be able to see \'{0}\' and \'{1}\' updated on the Profile Page", firstName, lastName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Adding description (like his hobbies, additional expertise or anything else in ma" +
+            "x. 600, alphanumeric or special characters) with valid inputs")]
+        [NUnit.Framework.CategoryAttribute("description")]
+        [NUnit.Framework.TestCaseAttribute("I like to Play", null)]
+        [NUnit.Framework.TestCaseAttribute("I like to Swim12#", null)]
+        public virtual void AddingDescriptionLikeHisHobbiesAdditionalExpertiseOrAnythingElseInMax_600AlphanumericOrSpecialCharactersWithValidInputs(string description, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "description"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding description (like his hobbies, additional expertise or anything else in ma" +
+                    "x. 600, alphanumeric or special characters) with valid inputs", null, @__tags);
+#line 33
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 34
+ testRunner.Given("Seller is on Profile Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 35
+ testRunner.When("he clicks on the Edit icon next to Description", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 36
+ testRunner.And(string.Format("enter \'{0}\' in the textbox", description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 37
+ testRunner.Then("a popup message \'Description has been saved successfully\' will appear", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 38
+ testRunner.And(string.Format("he must be able to see \'{0}\' on the Profile Page", description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Adding Certifications with valid inputs")]
+        [NUnit.Framework.CategoryAttribute("certifications")]
+        [NUnit.Framework.TestCaseAttribute("ABC", "xx", "2006", null)]
+        public virtual void AddingCertificationsWithValidInputs(string certificate, string from, string year, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "certifications"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding Certifications with valid inputs", null, @__tags);
+#line 48
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 49
+ testRunner.Given("Seller is on Profile Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 50
+ testRunner.When("he clicks on Add New button under Certifications tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 51
+ testRunner.And(string.Format("he enters \'{0}\', \'{1}\', \'{2}\' in Certifications", certificate, from, year), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 52
+ testRunner.Then(string.Format("a popup message \'{0} has been added to your certification\' will appear", certificate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 53
+ testRunner.And(string.Format("a new row with \'{0}\', \'{1}\', \'{2}\' will be added sucessfully", certificate, from, year), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

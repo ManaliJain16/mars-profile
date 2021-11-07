@@ -19,8 +19,16 @@ namespace MarsQA_1.Feature
         public void ClearEducationRows()
         {
             Thread.Sleep(500);
-            profilePageObj.clickOnTab(driver, "Education");
+            profilePageObj.clickEducationTab(driver);
             profilePageObj.clearEducationRows(driver);
+        }
+
+        [BeforeScenario(Order = 1), Scope(Tag = "certifications")]
+        public void ClearCertificationsRows()
+        {
+            Thread.Sleep(500);
+            profilePageObj.clickCertificationTab(driver);
+            profilePageObj.clearCertificationRows(driver);
         }
 
         [Given(@"Seller is on Profile Page")]
@@ -33,20 +41,36 @@ namespace MarsQA_1.Feature
             Assert.That(URL, Contains.Substring("Profile"));
         }
 
+
+
+        //EDUCATION
+
         [When(@"he clicks on Add New button under (.*) tab")]
         public void WhenHeClicksOnAddNewButtonUnderEducationTab(String tabName)
         {
-            // Click on Education tab
-            profilePageObj.clickOnTab(driver, tabName);
 
-            //Click on "Add New" button 
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div")).Click();
+            switch(tabName)
+            {
+                case "Education":
+                    profilePageObj.clickEducationTab(driver);
+                    break;
+
+                case "Certifications":
+                    profilePageObj.clickCertificationTab(driver);
+                    break;
+
+                default:
+                    Assert.Fail("Tab Name is incorrect");
+                    break;
+            }
+
         }
 
+
         [When(@"he enters '(.*)', '(.*)', '(.*)', '(.*)' and '(.*)' in Education")]
-        public void WhenHeEntersAndInEducation(string University, string Country, string Title, string Degree, string YearofGraduation)
+        public void WhenHeEntersAndInEducation(string university, string country, string title, string degree, string yearOfGraduation)
         {
-            profilePageObj.addProfile(driver, University, Country, Title, Degree, YearofGraduation);
+            profilePageObj.addEducation(driver, university, country, title, degree, yearOfGraduation);
         }
 
         [Then(@"a popup message '(.*)' will appear")]
@@ -59,7 +83,7 @@ namespace MarsQA_1.Feature
         }
 
         [Then(@"a new row with '(.*)', '(.*)', '(.*)', '(.*)', '(.*)' will be added successfully")]
-        public void ThenANewRowWithWillBeAddedSuccessfully(string University, string Country, string Title, string Degree, string YearofGraduation)
+        public void ThenANewRowWithWillBeAddedSuccessfully(string university, string country, string title, string degree, string yearOfGraduation)
         {
             string newUniversity = profilePageObj.getUniversity(driver);
             string newCountry = profilePageObj.getCountry(driver);
@@ -68,11 +92,11 @@ namespace MarsQA_1.Feature
             string newGraduationYear = profilePageObj.getGraduationYear(driver);
 
             //Assert 
-            Assert.AreEqual(University, newUniversity, "University not matches");
-            Assert.AreEqual(Country, newCountry, "Country not matches");
-            Assert.AreEqual(Title, newTitle, "Title not matches");
-            Assert.AreEqual(Degree, newDegree, "Degree not matches");
-            Assert.AreEqual(YearofGraduation, newGraduationYear, "GraduationYear not matches");
+            Assert.AreEqual(university, newUniversity, "University not matches");
+            Assert.AreEqual(country, newCountry, "Country not matches");
+            Assert.AreEqual(title, newTitle, "Title not matches");
+            Assert.AreEqual(degree, newDegree, "Degree not matches");
+            Assert.AreEqual(yearOfGraduation, newGraduationYear, "GraduationYear not matches");
         }
 
 
@@ -82,8 +106,7 @@ namespace MarsQA_1.Feature
         [When(@"he click on dropdown icon, just before his name")]
         public void WhenHeClickOnDropdownArrowJustBeforeHisName()
         {
-            //Seller Clicks on dropdown icon
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/i")).Click();
+            profilePageObj.profileNameDropdownIcon(driver);
         }
 
         [When(@"updates his '(.*)' and '(.*)'")]
@@ -92,7 +115,6 @@ namespace MarsQA_1.Feature
             profilePageObj.updateName(driver, firstName, lastName);
         }
 
-      
         [Then(@"he must be able to see '(.*)' and '(.*)' updated on the Profile Page")]
         public void ThenHeMustBeAbleToSeeAndUpdatedOnTheProfilePage(string firstName, string lastName)
         {
@@ -102,5 +124,54 @@ namespace MarsQA_1.Feature
             //Assert..what about last name
             Assert.AreEqual(expectedName, updatedName, "Expected Name not matched");
         }
+
+
+
+        //DESCRIPTION
+        [When(@"he clicks on the Edit icon next to Description")]
+        public void WhenHeClicksOnTheEditIconNextToDescription()
+        {
+            profilePageObj.descriptionEditIcon(driver);
+        }
+
+        [When(@"enter '(.*)' in the textbox")]
+        public void WhenEnterInTheTextbox(string description)
+        {
+            profilePageObj.createDescription(driver, description);
+        }
+
+        [Then(@"he must be able to see '(.*)' on the Profile Page")]
+        public void ThenHeMustBeAbleToSeeOnTheProfilePage(string description)
+        {
+            string createdDescription = profilePageObj.getcreateDescription(driver);
+
+            //Assert
+            Assert.AreEqual(description, createdDescription, "Description not matched");
+        }
+
+
+
+
+        //CERTIFICATION
+        [When(@"he enters '(.*)', '(.*)', '(.*)' in Certifications")]
+        public void WhenHeEntersInCertifications(string certificate, string from, string year)
+        {
+            profilePageObj.addCertificate(driver, certificate, from, year);
+        }
+
+        [Then(@"a new row with '(.*)', '(.*)', '(.*)' will be added sucessfully")]
+        public void ThenANewRowWithWillBeAddedSucessfully(string certificate, string from, string year)
+        {
+            string addedCertificate = profilePageObj.getCertificate(driver);
+            string addedFrom = profilePageObj.getFrom(driver);
+            string addedYear = profilePageObj.getYear(driver);
+
+            //Assert
+            Assert.AreEqual(certificate, addedCertificate, "Certificate not added");
+            Assert.AreEqual(from, addedFrom, "Certificate not added");
+            Assert.AreEqual(year, addedYear, "Certificate not added");
+        }
+
+
     }
 }
