@@ -133,8 +133,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Updating Sellers name")]
         [NUnit.Framework.CategoryAttribute("seller_name")]
-        [NUnit.Framework.TestCaseAttribute("Manali", "Jain", null)]
         [NUnit.Framework.TestCaseAttribute("@$##$#$", "392839283923", null)]
+        [NUnit.Framework.TestCaseAttribute("Manali", "Jain", null)]
         public virtual void UpdatingSellersName(string firstName, string lastName, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -185,8 +185,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Adding description (like his hobbies, additional expertise or anything else in ma" +
             "x. 600, alphanumeric or special characters) with valid inputs")]
         [NUnit.Framework.CategoryAttribute("description")]
-        [NUnit.Framework.TestCaseAttribute("I like to Play", null)]
         [NUnit.Framework.TestCaseAttribute("I like to Swim12#", null)]
+        [NUnit.Framework.TestCaseAttribute("I like to Play", null)]
         public virtual void AddingDescriptionLikeHisHobbiesAdditionalExpertiseOrAnythingElseInMax_600AlphanumericOrSpecialCharactersWithValidInputs(string description, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -339,7 +339,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Adding Skills with duplicate data")]
         [NUnit.Framework.CategoryAttribute("skills")]
-        [NUnit.Framework.TestCaseAttribute("Muli-tasking", "Beginner", "Beginner", "This skill is already exist in your skill list.", null)]
         [NUnit.Framework.TestCaseAttribute("Selenium", "Intermediate", "Beginner", "Duplicated data", null)]
         public virtual void AddingSkillsWithDuplicateData(string skill, string level, string secondLevel, string message, string[] exampleTags)
         {
@@ -414,7 +413,7 @@ this.ScenarioInitialize(scenarioInfo);
             }
             string[] tagsOfScenario = @__tags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Saving Languages with missing inputs", null, @__tags);
-#line 79
+#line 78
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -434,19 +433,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 80
+#line 79
  testRunner.Given("Seller is on Profile Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 81
+#line 80
  testRunner.When("he clicks on Add New button under Languages tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 82
+#line 81
  testRunner.And(string.Format("he enters \'{0}\' and \'{1}\'", language, level), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 83
+#line 82
  testRunner.Then(string.Format("an error pop up message \'{0}\' will appear", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 84
+#line 83
  testRunner.And(string.Format("a row with \'{0}\' and \'{1}\' will not be added to the list", language, level), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }

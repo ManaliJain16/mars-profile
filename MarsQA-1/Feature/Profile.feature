@@ -25,8 +25,8 @@ Scenario Outline: Updating Sellers name
 
 	Examples:
 		| FirstName | LastName     |
-		| Manali    | Jain         |
 		| @$##$#$   | 392839283923 |
+		| Manali    | Jain         |
 
 @description
 Scenario Outline: Adding description (like his hobbies, additional expertise or anything else in max. 600, alphanumeric or special characters) with valid inputs
@@ -38,8 +38,8 @@ Scenario Outline: Adding description (like his hobbies, additional expertise or 
 
 	Examples:
 		| Description       |
-		| I like to Play    |
 		| I like to Swim12# |
+		| I like to Play    |
 
 @certifications
 Scenario Outline: Adding Certifications with valid inputs
@@ -71,9 +71,8 @@ Scenario Outline: Adding Skills with duplicate data
 	Then an error pop up message '<Message>' will appear
 
 	Examples:
-		| Skill        | Level        | Second Level | Message                                         |
-		| Muli-tasking | Beginner     | Beginner     | This skill is already exist in your skill list. |
-		| Selenium     | Intermediate | Beginner     | Duplicated data                                 |
+		| Skill    | Level        | Second Level | Message         |
+		| Selenium | Intermediate | Beginner     | Duplicated data |
 
 @language
 Scenario Outline: Saving Languages with missing inputs
