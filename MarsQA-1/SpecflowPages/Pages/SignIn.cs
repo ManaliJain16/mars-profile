@@ -1,6 +1,5 @@
 ﻿using MarsQA_1.Helpers;
 using OpenQA.Selenium;
-using System.Threading;
 
 namespace MarsQA_1.Pages
 {

@@ -12,7 +12,8 @@ namespace MarsQA_1.Helpers
         public static string Url = "http://localhost:5000";
 
         //ScreenshotPath
-        public static string ScreenshotPath = "";
+        // TODO: fix to relative path
+        public static string ScreenshotPath = @"C:\Users\manal\OneDrive\Documents\Mars - Profile\mars-profile\MarsQA-1\TestReports\Screenshots\";
 
         //ExtentReportsPath
         public static string ReportsPath = "";

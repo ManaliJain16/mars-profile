@@ -7,17 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using RelevantCodes.ExtentReports;
 
-
 namespace MarsQA_1.Helpers
 {
     public class CommonMethods
     {
         //Screenshots
-        //Screenshot
-
         public class SaveScreenShotClass
         {
-            
+
             public static string SaveScreenshot(IWebDriver driver, string ScreenShotFileName) // Definition
             {
                 var folderLocation = (ConstantHelpers.ScreenshotPath);
@@ -40,19 +37,19 @@ namespace MarsQA_1.Helpers
         }
 
         //ExtentReports
-        #region reports
-        public static ExtentTest test;
-        public static ExtentReports Extent;
+        //#region reports
+        //public static ExtentTest test;
+        //public static ExtentReports Extent;
 
 
 
-        public static void ExtentReports()
-        {
-            Extent = new ExtentReports(ConstantHelpers.ReportsPath, true, DisplayOrder.NewestFirst);
-            Extent.LoadConfig(ConstantHelpers.ReportXMLPath);
-        }
+        //public static void ExtentReports()
+        //{
+        //    Extent = new ExtentReports(ConstantHelpers.ReportsPath, true, DisplayOrder.NewestFirst);
+        //    Extent.LoadConfig(ConstantHelpers.ReportXMLPath);
+        //}
     }
-    #endregion
+    //#endregion
 
 }
 
