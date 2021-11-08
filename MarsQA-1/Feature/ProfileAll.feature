@@ -1,5 +1,5 @@
 ﻿@profile
-Feature: Profile Feature
+Feature: All possible scenarios for Add Profile Feature
 As a Seller on Mars
 I will be able to add Profile details
 So I can manage my Profile successfully
