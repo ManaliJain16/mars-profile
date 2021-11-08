@@ -7,14 +7,22 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using September2021.Utilities;
 
 namespace MarsQA_1.SpecflowPages.Pages
 {
     class ProfilePage
     {
         public void clickOnTab(IWebDriver driver, string tabName)
-        { 
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[" + getTabNumber(tabName) + "]")).Click();
+        {
+            // find tab xpath based on tab name
+            string tabXPath = "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[" + getTabNumber(tabName) + "]";
+
+            // wait for tab to appear
+            Wait.waitForElementToBeClickable(driver, LocatorType.XPath, tabXPath, 2);
+
+            // click on tab
+            driver.FindElement(By.XPath(tabXPath)).Click();
         }
 
         public void clearRows(IWebDriver driver, string tabName)
@@ -25,9 +33,15 @@ namespace MarsQA_1.SpecflowPages.Pages
                 try
                 {
                     int tableNumber = getTabNumber(tabName) + 1;
-                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div["+tableNumber+"]/div/div[2]/div/table/tbody/tr/td[last()]/span[2]"));
+                    var deleteButton = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[" + tableNumber + "]/div/div[2]/div/table/tbody/tr/td[last()]/span[2]"));
                     deleteButton.Click();
-                    Thread.Sleep(1000);
+
+                    // wait for delete button of deleted row to disappear
+                    Wait.waitForElementToDisappear(driver, deleteButton, 2);
+
+                    // close the popup
+                    var popupClose = driver.FindElement(By.XPath("//a[@class='ns-close']"));
+                    popupClose.Click();
                 }
                 catch (NoSuchElementException ex)
                 {
@@ -61,18 +75,33 @@ namespace MarsQA_1.SpecflowPages.Pages
             return tabNumber;
         }
 
+        public void verifyPopupMessage(IWebDriver driver, string message)
+        {
+            // wait for popup message to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.XPath, "//*[@class='ns-box-inner']", 2);
+
+            // assert popup message
+            var popup = driver.FindElement(By.XPath("//*[@class='ns-box-inner']"));
+            Assert.AreEqual(message, popup.Text, "Popup text not matching");
+
+            // close the popup
+            var popupClose = driver.FindElement(By.XPath("//a[@class='ns-close']"));
+            popupClose.Click();
+        }
+
 
         //EDUCATION
-        //TO DO - remove all Thread.sleep
 
         public void addEducation(IWebDriver driver, string university, string country, string title, string degree, string yearOfGraduation)
         {
             //Click on Add New button under Education                           
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div")).Click();
 
+            // wait for University text box to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "instituteName", 2);
+
             //Identify "University Name" textbox and input code
-            Thread.Sleep(300);
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[1]/div[1]/input")).SendKeys(university);
+            driver.FindElement(By.Name("instituteName")).SendKeys(university);
 
             //Select country from dropdown list
             var countrySelect = new SelectElement(driver.FindElement(By.Name("country")));
@@ -83,7 +112,7 @@ namespace MarsQA_1.SpecflowPages.Pages
             titleSelect.SelectByText(title);
 
             //Identify "Degree" textbox and input code
-            driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[2]/input")).SendKeys(degree);
+            driver.FindElement(By.Name("degree")).SendKeys(degree);
 
             //Identify "Year of graduation" dropdown list
             var yearOfGraduationSelect = new SelectElement(driver.FindElement(By.Name("yearOfGraduation")));
@@ -134,15 +163,24 @@ namespace MarsQA_1.SpecflowPages.Pages
 
         public void updateName(IWebDriver driver, string firstName, string lastName)
         {
-            // Identify FirstName Textbox, edit existing value and add new first name 
-            Thread.Sleep(500);
+            // wait for FirstName textbox to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "firstName", 2);
 
-            IWebElement firstNametextbox = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div[1]/input[1]"));
+            // Identify FirstName Textbox, edit existing value and add new first name 
+            IWebElement firstNametextbox = driver.FindElement(By.Name("firstName"));
+            // TODO: How to remove this sleep?
+            Thread.Sleep(500);
+            // Wait.waitForElementToBeClickable(driver, LocatorType.Name, "firstName", 2);
             firstNametextbox.Clear();
             firstNametextbox.SendKeys(firstName);
 
-            //Identify LastName Textbox, edit existing value and add new first name
-            IWebElement lastNametextbox = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div[1]/input[2]"));
+            // wait for FirstName textbox to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "lastName", 2);
+
+            // Identify LastName Textbox, edit existing value and add new first name
+            IWebElement lastNametextbox = driver.FindElement(By.Name("lastName"));
+            Thread.Sleep(500);
+            // Wait.waitForElementToBeClickable(driver, LocatorType.Name, "lastName", 2);
             lastNametextbox.Clear();
             lastNametextbox.SendKeys(lastName);
 
@@ -153,9 +191,11 @@ namespace MarsQA_1.SpecflowPages.Pages
         //Check updated name
         public string getupdatedName(IWebDriver driver)
         {
-            Thread.Sleep(500);
-            IWebElement updatedName = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]"));
-            Thread.Sleep(300);
+            // Wait for title to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.CssSelector, ".title", 2);
+
+            // get updated title
+            IWebElement updatedName = driver.FindElement(By.CssSelector(".title"));
             return updatedName.Text;
         }
 
@@ -170,19 +210,26 @@ namespace MarsQA_1.SpecflowPages.Pages
 
         public void createDescription(IWebDriver driver, string description)
         {
-            //Identify description textbox and input values
+            // wait for description textbox to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "value", 2);
+
+            // Identify description textbox and input values
+            var descriptiontextbox = driver.FindElement(By.Name("value"));
+            // TODO: How to remove this sleep
             Thread.Sleep(500);
-            var descriptiontextbox = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea"));
             descriptiontextbox.Clear();
             descriptiontextbox.SendKeys(description);
 
-            //Click on Save Button
+            // Click on Save Button
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/button")).Click();
         }
 
         //Check created description
         public string getcreateDescription(IWebDriver driver)
         {
+            // wait for description to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.XPath, "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/span", 2);
+
             IWebElement createdDescription = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/span"));
             return createdDescription.Text;
         }
@@ -193,9 +240,11 @@ namespace MarsQA_1.SpecflowPages.Pages
 
         public void addCertificate(IWebDriver driver, string certificate, string from, string year)
         {
-            //Click on Add New button under Certifications tab
+            // Click on Add New button under Certifications tab
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/thead/tr/th[4]/div")).Click();
-            Thread.Sleep(500);
+
+            // wait for certificate text box to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "certificationName", 2);
 
             //Click on Certificate or Award textbox  
             driver.FindElement(By.Name("certificationName")).SendKeys(certificate);
@@ -240,15 +289,16 @@ namespace MarsQA_1.SpecflowPages.Pages
             // click on Add New button
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div")).Click();
 
-            Thread.Sleep(300);
+            // wait for add Skills text box to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "name", 2);
+
+            // add skill
             driver.FindElement(By.Name("name")).SendKeys(skill);
 
-            Thread.Sleep(300);
             var levelSelect = new SelectElement(driver.FindElement(By.Name("level")));
             levelSelect.SelectByText(level);
 
             // click on Add button
-            Thread.Sleep(300);
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]")).Click();
         }
 
@@ -257,17 +307,19 @@ namespace MarsQA_1.SpecflowPages.Pages
             // click on Add New button
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div")).Click();
 
+            // wait for add Language text box to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Name, "name", 2);
+
             // add language
             driver.FindElement(By.Name("name")).SendKeys(language);
 
-
             // add level
             var levelSelect = new SelectElement(driver.FindElement(By.Name("level")));
-            if(level != "")
+            if (level != "")
             {
                 levelSelect.SelectByText(level);
             }
-            
+
             // click Add
             driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]")).Click();
         }

@@ -5,6 +5,7 @@ using MarsQA_1.SpecflowPages.Pages;
 using MarsQA_1.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using September2021.Utilities;
 using TechTalk.SpecFlow;
 
 namespace MarsQA_1.Feature
@@ -18,7 +19,6 @@ namespace MarsQA_1.Feature
         [BeforeScenario(Order = 1), Scope(Tag = "education")]
         public void ClearEducationRows()
         {
-            Thread.Sleep(500);
             profilePageObj.clickOnTab(driver, "Education");
             profilePageObj.clearRows(driver, "Education");
         }
@@ -26,7 +26,6 @@ namespace MarsQA_1.Feature
         [BeforeScenario(Order = 1), Scope(Tag = "certifications")]
         public void ClearCertificationsRows()
         {
-            Thread.Sleep(500);
             profilePageObj.clickOnTab(driver, "Certifications");
             profilePageObj.clearRows(driver, "Certifications");
         }
@@ -34,7 +33,6 @@ namespace MarsQA_1.Feature
         [BeforeScenario(Order = 1), Scope(Tag = "skills")]
         public void ClearSkillsRows()
         {
-            Thread.Sleep(500);
             profilePageObj.clickOnTab(driver, "Skills");
             profilePageObj.clearRows(driver, "Skills");
         }
@@ -42,7 +40,6 @@ namespace MarsQA_1.Feature
         [BeforeScenario(Order = 1), Scope(Tag = "language")]
         public void ClearLanguagesRows()
         {
-            Thread.Sleep(500);
             profilePageObj.clickOnTab(driver, "Languages");
             profilePageObj.clearRows(driver, "Languages");
         }
@@ -50,9 +47,12 @@ namespace MarsQA_1.Feature
         [Given(@"Seller is on Profile Page")]
         public void GivenSellerIsOnProfilePage()
         {
-            // Setup method in Start class will be executed before each scenario.
+            // Note - Setup method in Start class will be executed before each scenario.
+
+            // wait for div with id 'account-profile-section' to appear
+            Wait.waitForElementToBeVisible(driver, LocatorType.Id, "account-profile-section", 2);
+
             // assert that you are on Profile Page - URL contains Profile.
-            Thread.Sleep(500);
             string URL = driver.Url;
             Assert.That(URL, Contains.Substring("Profile"));
         }
@@ -77,18 +77,13 @@ namespace MarsQA_1.Feature
         [Then(@"a success popup message '(.*)' will appear")]
         public void ThenAPopupMessageWillAppear(string message)
         {
-            //popup message
-            Thread.Sleep(200);
-            var popup = driver.FindElement(By.XPath("//*[@class='ns-box-inner']"));
-            Assert.AreEqual(message, popup.Text, "Popup text not matching");
+            profilePageObj.verifyPopupMessage(driver, message);
         }
 
         [Then(@"an error pop up message '(.*)' will appear")]
-        public void ThenAnErrorPopUpMessageWillAppear(string message)
+        public void ThenAnErrorPopUpMessageWillAppear(string errorMessage)
         {
-            Thread.Sleep(200);
-            var popup = driver.FindElement(By.XPath("//*[@class='ns-box-inner']"));
-            Assert.AreEqual(message, popup.Text, "Popup text not matching");
+            profilePageObj.verifyPopupMessage(driver, errorMessage);
         }
 
         [Then(@"a new row with '(.*)', '(.*)', '(.*)', '(.*)', '(.*)' will be added successfully")]
