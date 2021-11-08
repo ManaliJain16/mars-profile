@@ -1,4 +1,4 @@
-﻿@profile
+@profile
 Feature: Profile Feature
 As a Seller on Mars
 I will be able to add Profile details
