@@ -57,8 +57,6 @@ namespace MarsQA_1.Feature
             Assert.That(URL, Contains.Substring("Profile"));
         }
 
-
-
         //EDUCATION
 
         [When(@"he clicks on Add New button under (.*) tab")]

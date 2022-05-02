@@ -15,7 +15,7 @@ namespace MarsQA_1.Utils
             //launch the browser
             Initialize();
             // TODO: fix to use relative path
-            ExcelLibHelper.PopulateInCollection(@"C:\Users\manal\OneDrive\Documents\Mars - Profile\mars-profile\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "Credentials");
+            ExcelLibHelper.PopulateInCollection(@"C:\Users\manal\OneDrive\Documents\github-repos\mars-profile\MarsQA-1\SpecflowTests\Data\Mars.xlsx", "Credentials");
 
             //call the SignIn class
             SignIn.SigninStep();
