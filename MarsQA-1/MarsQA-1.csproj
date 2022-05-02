@@ -152,29 +152,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Feature\Login.cs" />
     <Compile Include="Feature\ProfileFeatureSteps.cs" />
-    <Compile Include="SpecflowPages\Helpers\CommonMethods.cs" />
-    <Compile Include="SpecflowPages\Helpers\ConstantHelpers.cs" />
-    <Compile Include="SpecflowPages\Helpers\Driver.cs" />
-    <Compile Include="SpecflowPages\Helpers\ExcelLibHelper.cs" />
-    <Compile Include="SpecflowPages\Pages\ProfilePage.cs" />
-    <Compile Include="SpecflowPages\Pages\SignIn.cs" />
-    <Compile Include="SpecflowPages\Utils\LocatorType.cs" />
-    <Compile Include="SpecflowPages\Utils\Start.cs" />
+    <Compile Include="Helpers\CommonMethods.cs" />
+    <Compile Include="Helpers\ConstantHelpers.cs" />
+    <Compile Include="Helpers\Driver.cs" />
+    <Compile Include="Helpers\ExcelLibHelper.cs" />
+    <Compile Include="Pages\ProfilePage.cs" />
+    <Compile Include="Pages\SignIn.cs" />
+    <Compile Include="Helpers\LocatorType.cs" />
+    <Compile Include="Helpers\Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpecflowPages\Utils\Wait.cs" />
+    <Compile Include="Helpers\Wait.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Feature\ProfileAll.feature" />
     <None Include="Feature\Profile.feature" />
-    <None Include="SpecflowTests\Data\Data.xlsx" />
+    <None Include="TestData\ProfileData.xlsx" />
     <None Include="packages.config" />
-    <None Include="SpecflowTests\Data\Mars.xlsx" />
+    <None Include="TestData\LoginData.xlsx" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SpecflowTests\Bind_Steps\" />
     <Folder Include="TestReports\Screenshots\" />
     <Folder Include="TestReports\Test_files\" />
   </ItemGroup>

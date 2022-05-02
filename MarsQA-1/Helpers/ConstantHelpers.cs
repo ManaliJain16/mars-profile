@@ -13,7 +13,7 @@ namespace MarsQA_1.Helpers
 
         //ScreenshotPath
         // TODO: fix to relative path
-        public static string ScreenshotPath = @"C:\Users\manal\OneDrive\Documents\Mars - Profile\mars-profile\MarsQA-1\TestReports\Screenshots\";
+        public static string ScreenshotPath = @"C:\Users\manal\OneDrive\Documents\github-repos\mars-profile\MarsQA-1\TestReports\Screenshots\";
 
         //ExtentReportsPath
         public static string ReportsPath = "";
